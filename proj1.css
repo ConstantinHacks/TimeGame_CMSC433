@@ -25,6 +25,7 @@ img {
 /* Add some padding inside the card container */
 .container {
     padding: 4px 16px 4px;
+    text-align: center;
 }
 
 .clock{
@@ -42,4 +43,13 @@ img {
 
 .lifeLabel {
   display: inline;
+}
+
+.nameContainer{
+  float:right;
+  width:100px;
+}
+
+.newGameDiv{
+  text-align: center;
 }

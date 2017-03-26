@@ -10,7 +10,10 @@ NUMQUESTIONS = 10;
 
 difficulties = [EASYDIFFICULTY,MEDIUMDIFFICULTY,HARDDIFFICULTY];
 
+
 lifeTotal = 3;
+
+var clockDiv = document.getElementById('clockDiv');
 
 function Game(name,score){
   playerName = name;
@@ -20,17 +23,26 @@ function Game(name,score){
 var games = [];
 
 function startNewGame(){
-  var name = prompt("Enter your Full Name Please:", "");
+  // var name = prompt("Enter your Full Name Please:", "");
   var difficultyIndex = 0;
-  runGame(difficultyIndex);
+  clockDiv.removeChild(document.getElementById('instructionImage'))
 
+
+  runGame(difficultyIndex);
 }
 
 function runGame(difficultyIndex){
 
-  while(lifeTotal != 0){
-    var number = Math.floor((Math.random() * 10) + 1);
-    
-  }
+  var x = document.createElement("IMG");
+  x.setAttribute("src", "EASY/120.jpg");
+  x.setAttribute("width", "300");
+  x.setAttribute("height", "220");
+  console.log(clockDiv);
+  clockDiv.appendChild(x);
+
+  // while(lifeTotal != 0){
+  //   var number = Math.floor((Math.random() * 10) + 1);
+  //
+  // }
 
 }

@@ -3,15 +3,14 @@
 <meta charset=utf-8 />
    <title>Clock Game</title>
    <link rel="stylesheet" type="text/css" href="proj1.css">
-   <script type="text/javascript" src= "proj1.js"></script>
 </head>
 <body>
 
 
   <div class="card">
-    <canvas id="canvas" width="400" height="400"
-    style="background-color:#333">
-    </canvas>
+    <div class="clockDiv" id="clockDiv">
+      <img id="instructionImage" src="startgame.png">
+    </div>
 
 
     <div class="container" width="200px">
@@ -43,11 +42,12 @@
   <br><br>
 
   <div class="newGameDiv">
-    <button onclick="startNewGame()">Start New Game</button>
+    <button class="startButton" onclick="startNewGame()">Start New Game</button>
   </div>
 
   </div>
 
 
 </body>
+<script type="text/javascript" src= "proj1.js"></script>
 </html>

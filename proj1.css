@@ -28,11 +28,13 @@ img {
     text-align: center;
 }
 
-.clock{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 200px;
+.clockDiv{
+  display: table;
+  margin: 0 auto;
+}
+
+.startButton{
+  background-color: #f44336;
 }
 
 .lifeContainer{

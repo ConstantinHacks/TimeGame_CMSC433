@@ -17,7 +17,7 @@
       <form>
         <h4><b>What Time is it?</b></h4>
         <input type="text" id="userInput" placeholder="Put your guess here" name="time">
-        <input type="button" class="nextQuestion" onclick="next()" value="Next >>"></input>
+        <input type="hidden" class="nextQuestion" id="nextButton" onclick="next()" value="Check >>"></input>
       </form>
       <br>
     </div>
@@ -26,17 +26,17 @@
     <tr>
       <th>
         <div class="lifeContainer">
-          <p class="lifeLabel">Lives Left:&nbsp;</p> <img class="lifeImage" src="3heart.png"/>
+          <p id="lifeLabel" class="lifeLabel">Lives Left:&nbsp;</p> <img class="lifeImage" src="3heart.png"/>
         </div>
       </th>
       <th>
         <div class="scoreContainer">
-          <p class="scoreLabel">Score:&nbsp;</p>
+          <p id="scoreLabel">Score:&nbsp;</p>
         </div>
       </th>
       <th>
         <div class="nameContainer">
-          <p class="nameLabel">Player:</p>
+          <p id="nameLabel">Player:</p>
         </div>
       </th>
     </tr>
@@ -44,16 +44,14 @@
 
   <br><br>
 
-
   <div class="inputsDiv">
-    <input type="button" class="quitinput" onclick="quitGame()" value= "Quit Game Game"></input>
-    <input type="button" class="startinput" onclick="startNewGame()" value= "Start New Game"></input>
+    <a class="linkButton" href="./index.html">Quit Game</a>
   </div>
 
 
-  </div>
+</div>
 
 
 </body>
-<script type="text/javascript" src= "proj1.js"></script>
+<script type="text/javascript" src="proj1.js"></script>
 </html>

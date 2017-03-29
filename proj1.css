@@ -17,8 +17,17 @@ body {
     overflow: auto;
 }
 
-.submit {
+.nextQuestion{
   background-color: cyan;
+}
+
+.linkButton{
+  
+}
+
+
+.welcomeDiv{
+  text-align: center;
 }
 
 /* Add rounded corners to the top left and the top right corner of the image */
@@ -35,6 +44,10 @@ img {
 .clockDiv{
   display: table;
   margin: 0 auto;
+}
+
+.inputsDiv{
+  text-align: center;
 }
 
 .startButton{

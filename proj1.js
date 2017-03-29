@@ -16,7 +16,9 @@ var lifeTotal = 3;
 var clockDiv = document.getElementById('clockDiv');
 var score = 0;
 var playerName;
-var difficultyIndex;
+var fileName;
+var difficultyIndex = 0;
+var questionsAnswered = 0;
 
 function Game(name,score){
   playerName = name;
@@ -25,40 +27,73 @@ function Game(name,score){
 
 var games = [];
 
-function quit(){
+//BLOCK ENTER KEY
+function stopRKey(evt) {
+  var evt = (evt) ? evt : ((event) ? event : null);
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;}
+}
 
+document.onkeypress = stopRKey;
+
+
+function quit(){
+  
 }
 
 function startNewGame(){
-  // var name = prompt("Enter your Full Name Please:", "");
+  // playerName= prompt("Enter your Full Name Please:", "");
+  // document.getElementById("nameLabel").type = playerName;
+
+  document.getElementById("nextButton").type = "button";
   difficultyIndex = 0;
   clockDiv.removeChild(document.getElementById('instructionImage'))
+
+  questionsAnswered++;
 
   showImage();
 }
 
 function next(){
 
+  var userInput = document.getElementById('userInput').value;
 
-
-  if(!document.getElementById('userInput').value){
+  if(!userInput){
+    alert("Please make sure you input your guess.")
     console.log("No Input");
     return false;
   }
 
-  document.getElementById('userInput').value='';
+  if(userInput.search(":") == -1){
+    alert("You're Missing a Colon. Please make sure your input looks like this 2:30.")
+    console.log("No Colon");
+    return false;
+  }
 
+  checkInput(userInput,fileName);
+
+  document.getElementById('userInput').value='';
 
   if(document.getElementById('clockImage')){
     clockDiv.removeChild(document.getElementById('clockImage'))
   }
+  console.log("Questions Answerd: " + questionsAnswered);
+  questionsAnswered++;
 
-  showImage();
+  if(questionsAnswered == 10){
+    //CHANGE TO MEDIUM
+  } else if(questionsAnswered == 20){
+    //CHANGE TO HARD
+  } else if(questionsAnswered == 30){
+    //FINISH
+    saveGame();
+  } else {
+    showImage();
+  }
+
 }
 
 function showImage(){
-
-  var fileName;
 
   var randomNumber = Math.floor(Math.random() * 10);
 
@@ -80,3 +115,51 @@ function showImage(){
 
   return false;
 }
+
+function checkInput(input,expected){
+  var formattedInput = input.replace(':',"");
+
+  console.log(formattedInput);
+  console.log(expected);
+
+  if(expected.search(formattedInput) != -1){
+    rightAnswer();
+  } else {
+    wrongAnswer();
+  }
+
+}
+
+
+function wrongAnswer(){
+  console.log("incorrect");
+  lifeTotal--;
+
+  if(lifeTotal == 2){
+
+  } else if(lifeTotal == 1) {
+
+  } else {
+    saveGame();
+  }
+}
+
+function rightAnswer(){
+  console.log("correct");
+  if (difficultyIndex == EASYDIFFICULTY){
+    score += 1000;
+  } else if (difficultyIndex == MEDIUMDIFFICULTY) {
+    score += 2000;
+  } else {
+    score += 5000;
+  }
+
+  document.getElementById('scoreLabel').innerHTML = "Score: " + score;
+
+}
+
+function saveGame(){
+
+}
+
+startNewGame();

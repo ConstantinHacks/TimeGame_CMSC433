@@ -38,6 +38,10 @@ img {
 }
 
 .startButton{
+  background-color: green;
+}
+
+.quitButton{
   background-color: #f44336;
 }
 
@@ -57,5 +61,9 @@ img {
 }
 
 .newGameDiv{
+  text-align: center;
+}
+
+.buttonsDiv{
   text-align: center;
 }

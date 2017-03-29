@@ -16,6 +16,8 @@
     <div class="container" width="200px">
       <form>
         <h4><b>What Time is it?</b></h4>
+        <input type="text" id="userInput" placeholder="Put your guess here" name="time">
+        <input type="button" class="nextQuestion" onclick="next()" value="Next >>"></input>
       </form>
       <br>
     </div>
@@ -42,9 +44,12 @@
 
   <br><br>
 
-  <div class="newGameDiv">
-    <button class="startButton" onclick="startNewGame()">Start New Game</button>
+
+  <div class="inputsDiv">
+    <input type="button" class="quitinput" onclick="quitGame()" value= "Quit Game Game"></input>
+    <input type="button" class="startinput" onclick="startNewGame()" value= "Start New Game"></input>
   </div>
+
 
   </div>
 

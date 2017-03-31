@@ -14,18 +14,20 @@ TOTALQUESTIONS = 30;
 
 var lifeTotal = 3;
 var clockDiv = document.getElementById('clockDiv');
-var score = 0;
+var playerScore = 0;
 var playerName;
 var fileName;
 var difficultyIndex = 0;
 var questionsAnswered = 0;
 
-function Game(name,score){
-  playerName = name;
-  playerScore = score;
+class Game {
+  constructor(playerName,playerScore){
+    this.playerName = playerName;
+    this.playerScore = playerScore;
+  }
+
 }
 
-var games = [];
 
 //BLOCK ENTER KEY
 function stopRKey(evt) {
@@ -38,7 +40,7 @@ document.onkeypress = stopRKey;
 
 
 function quit(){
-  
+
 }
 
 function startNewGame(){
@@ -49,7 +51,8 @@ function startNewGame(){
   difficultyIndex = 0;
   clockDiv.removeChild(document.getElementById('instructionImage'))
 
-  questionsAnswered++;
+  document.getElementById('scoreLabel').innerHTML = "Score: 0";
+
 
   showImage();
 }
@@ -77,19 +80,21 @@ function next(){
   if(document.getElementById('clockImage')){
     clockDiv.removeChild(document.getElementById('clockImage'))
   }
-  console.log("Questions Answerd: " + questionsAnswered);
+
   questionsAnswered++;
 
-  if(questionsAnswered == 10){
-    //CHANGE TO MEDIUM
-  } else if(questionsAnswered == 20){
-    //CHANGE TO HARD
-  } else if(questionsAnswered == 30){
-    //FINISH
-    saveGame();
-  } else {
-    showImage();
+  console.log("Questions Answerd: " + questionsAnswered);
+
+  if(questionsAnswered == 30){
+    gameOver(true);
+  } else if(questionsAnswered % 10 == 0){
+    difficultyIndex++;
+    document.getElementById('lifeImage').setAttribute("src","./3heart.png");
+    lifeTotal = 3;
   }
+
+  showImage();
+
 
 }
 
@@ -113,16 +118,16 @@ function showImage(){
 
   clockDiv.appendChild(image);
 
+  console.log(fileName);
+
   return false;
 }
 
-function checkInput(input,expected){
+function checkInput(input,fileName){
   var formattedInput = input.replace(':',"");
+  var time = fileName.replace(/[^0-9]/g,'');
 
-  console.log(formattedInput);
-  console.log(expected);
-
-  if(expected.search(formattedInput) != -1){
+  if(formattedInput == time){
     rightAnswer();
   } else {
     wrongAnswer();
@@ -130,36 +135,108 @@ function checkInput(input,expected){
 
 }
 
-
 function wrongAnswer(){
   console.log("incorrect");
   lifeTotal--;
 
   if(lifeTotal == 2){
-
+    document.getElementById('lifeImage').setAttribute("src","./2heart.png");
   } else if(lifeTotal == 1) {
-
+    document.getElementById('lifeImage').setAttribute("src","./1heart.png");
   } else {
-    saveGame();
+    gameOver(false);
   }
 }
 
 function rightAnswer(){
   console.log("correct");
   if (difficultyIndex == EASYDIFFICULTY){
-    score += 1000;
+    playerScore += 1000;
   } else if (difficultyIndex == MEDIUMDIFFICULTY) {
-    score += 2000;
+    playerScore += 2000;
   } else {
-    score += 5000;
+    playerScore += 5000;
   }
 
-  document.getElementById('scoreLabel').innerHTML = "Score: " + score;
+  document.getElementById('scoreLabel').innerHTML = "Score: " + playerScore;
+}
+
+function gameOver(didWin){
+
+  if(localStorage["games"] == null){
+    var games = new Array();
+    games.push(new Game(playerName,playerScore));
+    localStorage["games"] = JSON.stringify(games)
+  } else {
+    var allGames = JSON.parse(localStorage["games"]);
+    allGames.push(new Game(playerName,playerScore))
+    localStorage["games"] = JSON.stringify(allGames)
+  }
+
+  console.log(JSON.parse(localStorage["games"]));
+
+  if(didWin){
+    window.location = "./win.html"
+  } else {
+    window.location = "./lose.html"
+  }
 
 }
 
-function saveGame(){
+function printLastGame(){
 
+  var numGames = JSON.parse(localStorage["games"]).length
+
+  var lastGame = JSON.parse(localStorage["games"])[numGames-1];
+
+  if(document.getElementById('winText')){
+    document.getElementById('winText').innerHTML = "Good Job, " + lastGame.playerName + "! you scored " + lastGame.playerScore + " points!";
+  } else {
+    document.getElementById('loseText').innerHTML = "Keep practicing, " + lastGame.playerName + "! you scored " + lastGame.playerScore + " points!";
+  }
 }
 
-startNewGame();
+if(document.getElementById('gameTitle')){
+  startNewGame();
+}
+
+function populateTables(){
+  var myTableDiv = document.getElementById("results")
+  console.log(myTableDiv);
+  var table = document.createElement('Table')
+  var tableBody = document.createElement('tableBody')
+
+  table.border = '1'
+  table.appendChild(tableBody);
+
+  var tr = document.createElement('TR');
+  tableBody.appendChild(tr);
+
+  var th = document.createElement('TH')
+  th.appendChild(document.createTextNode("Player Name"));
+  tr.appendChild(th);
+
+  var th = document.createElement('TH')
+  th.appendChild(document.createTextNode("Score"));
+  tr.appendChild(th);
+
+  var allGames = JSON.parse(localStorage["games"]);
+
+
+  for (i = 0; i < allGames.length; i++) {
+
+    var tr = document.createElement('TR');
+    var td = document.createElement('TD')
+    td.appendChild(document.createTextNode(allGames[i].playerName));
+    tr.appendChild(td)
+
+    var td = document.createElement('TD')
+    td.appendChild(document.createTextNode(allGames[i].playerScore));
+    tr.appendChild(td)
+
+    tableBody.appendChild(tr);
+    console.log("hey");
+  }
+  myTableDiv.appendChild(table)
+
+}

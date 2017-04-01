@@ -44,8 +44,8 @@ function quit(){
 }
 
 function startNewGame(){
-  // playerName= prompt("Enter your Full Name Please:", "");
-  // document.getElementById("nameLabel").type = playerName;
+  playerName= prompt("Enter your Full Name Please:", "");
+  document.getElementById("nameLabel").innerHTML = "Player: " +playerName;
 
   document.getElementById("nextButton").type = "button";
   difficultyIndex = 0;
@@ -137,6 +137,10 @@ function checkInput(input,fileName){
 
 function wrongAnswer(){
   console.log("incorrect");
+
+  var audio = new Audio('MP3s/wrong.mp3');
+  audio.play();
+
   lifeTotal--;
 
   if(lifeTotal == 2){
@@ -150,6 +154,10 @@ function wrongAnswer(){
 
 function rightAnswer(){
   console.log("correct");
+
+  var audio = new Audio('MP3s/right.mp3');
+  audio.play();
+
   if (difficultyIndex == EASYDIFFICULTY){
     playerScore += 1000;
   } else if (difficultyIndex == MEDIUMDIFFICULTY) {
@@ -190,8 +198,12 @@ function printLastGame(){
   var lastGame = JSON.parse(localStorage["games"])[numGames-1];
 
   if(document.getElementById('winText')){
+    var audio = new Audio('MP3s/win.mp3');
+    audio.play();
     document.getElementById('winText').innerHTML = "Good Job, " + lastGame.playerName + "! you scored " + lastGame.playerScore + " points!";
   } else {
+    var audio = new Audio('MP3s/lose.mp3');
+    audio.play();
     document.getElementById('loseText').innerHTML = "Keep practicing, " + lastGame.playerName + "! you scored " + lastGame.playerScore + " points!";
   }
 }
@@ -222,7 +234,6 @@ function populateTables(){
 
   var allGames = JSON.parse(localStorage["games"]);
 
-
   for (i = 0; i < allGames.length; i++) {
 
     var tr = document.createElement('TR');
@@ -238,5 +249,4 @@ function populateTables(){
     console.log("hey");
   }
   myTableDiv.appendChild(table)
-
 }

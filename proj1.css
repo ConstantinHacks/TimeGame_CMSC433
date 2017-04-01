@@ -22,7 +22,7 @@ body {
 }
 
 .linkButton{
-  
+
 }
 
 
@@ -79,4 +79,20 @@ img {
 
 .buttonsDiv{
   text-align: center;
+}
+
+.intro{
+  font-size: 40pt;
+  color: red;
+}
+
+a,button {
+    background:#eee;
+    color:#333;
+    font-family:Arial, sans-serif;
+    font-size:11px;
+    font-weight:bold;
+    padding:3px 5px;
+    border:1px solid #aaa;
+    border-radius:3px;
 }

@@ -20,6 +20,8 @@
   index.html: Main menu screen
   scores.html Show list of scores in a table
 
+  Sound:
+  As a thoughtful add-on, I have included sounds for added encouragement. These play after a correct or incorrect answer and when the player loses or wins the game.
 
 REFERENCES:
 How to disable enter key from accidental submit refreshes
